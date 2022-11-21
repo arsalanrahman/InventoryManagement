@@ -17,10 +17,10 @@ public class DeleteController {
 	@Autowired
 	ProductDeleteService prodService;
 	
-	@DeleteMapping("/p-delete/{prodId}")
-	public ResponseEntity<ProductEntity> deleteController(@PathVariable String prodId) {
+	@DeleteMapping("/p-delete/{prodName}")
+	public ResponseEntity<ProductEntity> deleteController(@PathVariable String prodName) {
 		
-		return new ResponseEntity<ProductEntity>(prodService.deleteProduct(Integer.parseInt(prodId)),HttpStatus.OK);
+		return new ResponseEntity<ProductEntity>(prodService.deleteProduct(prodName),HttpStatus.OK);
 
 		
 		

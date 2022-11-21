@@ -6,6 +6,8 @@ public class ProductRequest {
 	private String detailedDescription;
 	private String category;
 	private Double price;
+	
+	
 	public String getProductName() {
 		return productName;
 	}

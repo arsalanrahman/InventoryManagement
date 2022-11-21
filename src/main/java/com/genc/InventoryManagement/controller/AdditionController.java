@@ -2,6 +2,7 @@ package com.genc.InventoryManagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,9 +20,8 @@ public class AdditionController {
 	
 	@Autowired
 	ProductAdditionService prodService;
-	@PostMapping("/p-addition")
+	@PostMapping(value="/p-addition",consumes = "application/json",produces="application/json")
 	public ResponseEntity<ProductResponse> addController(@ModelAttribute ProductRequest prodReq) {
-		
 		System.out.println(prodReq.getProductName());
 		return new ResponseEntity<ProductResponse>(prodService.addProduct(prodReq), HttpStatus.OK);
 		

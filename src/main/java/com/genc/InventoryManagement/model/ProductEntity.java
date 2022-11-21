@@ -14,7 +14,7 @@ public class ProductEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int productId;
-	@Column(name="Prod_name",nullable =false,unique=true)
+	@Column(name="Prod_name",nullable =false)
 	private String productName;
 	@Column(name="Short_desc",nullable=false)
 	private String shortDescription;

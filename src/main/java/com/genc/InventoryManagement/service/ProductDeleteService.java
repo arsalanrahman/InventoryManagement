@@ -12,8 +12,8 @@ public class ProductDeleteService {
 	@Autowired
 	ProductRepository prodRepo;
 	
-	public ProductEntity deleteProduct(Integer prodId) {
-		ProductEntity foundProduct = prodRepo.findById(prodId).orElseThrow(()->new ProductNotFoundException("Product not found for deleting"));
+	public ProductEntity deleteProduct(String prodName) {
+		ProductEntity foundProduct = prodRepo.findByProductName(prodName).orElseThrow(()->new ProductNotFoundException("Product not found for deleting"));
 		prodRepo.delete(foundProduct);
 		return foundProduct;
 		

@@ -33,10 +33,14 @@ public class ProductAdditionService {
 		
 	}
 	
-	private boolean checkCategory(String userCategory) {
+	public boolean checkCategory(String userCategory) {
+		if(userCategory != null) {
+		System.out.println(userCategory);
 		return (userCategory.equals("ELECTRONICS") || userCategory.equals("APPAREL") || 
 				userCategory.equals("GROCERY") || userCategory.equals("TRAVEL"));
+		}
 		
+		else throw new CategoryMismatchException(" Category null");
 	}
 	
 	private boolean checkDuplicateProduct(String productName, String productCategory) {
