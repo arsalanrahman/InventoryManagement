@@ -4,12 +4,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.genc.InventoryManagement.model.ProductEntity;
 import com.genc.InventoryManagement.model.ProductRequest;
 import com.genc.InventoryManagement.model.ProductResponse;
+import com.genc.InventoryManagement.model.ProductUpdateRequest;
 import com.genc.InventoryManagement.service.ProductAdditionService;
+import com.genc.InventoryManagement.service.ProductUpdateService;
 
 
 @AutoConfigureMockMvc
@@ -31,22 +32,16 @@ public class AdditionControllerTest {
 	@Autowired private MockMvc mvc;
 	
 	@MockBean ProductAdditionService prodAddService;
+	@MockBean ProductUpdateService prodUpdateService;
 	
-	@Value(value = "")
-	private String jsonRequest;
-	
-	@BeforeEach
-	public void setUp() {
-		
-	}
 	
 	//CREATE
 	@Test
 	public void createProductValidDetails() throws Exception 
 	{
 		
-		ProductRequest request = new ProductRequest("dummy666", "short desc", "long desc", "ELECTRONICS", 1000.00); //POJO
-		when(prodAddService.addProduct(request)).thenReturn(new ProductResponse("Successfully added", 
+		ProductUpdateRequest request = new ProductUpdateRequest("dummy666", "short desc", "long desc", 1000.00); //POJO
+		when(prodUpdateService.updateProduct(request)).thenReturn(new ProductResponse("Successfully added", 
 				new ProductEntity(request.getProductName(), request.getShortDescription(),
 						request.getDetailedDescription(), request.getDetailedDescription(), request.getPrice())));
 		String jsonRequest = this.mapToJson(request);
@@ -67,7 +62,7 @@ public class AdditionControllerTest {
 		String jsonRequest = this.mapToJson(request);
 		
 		
-		mvc.perform(post("/p-update").content(jsonRequest).contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mvc.perform(put("/p-update").content(jsonRequest).contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 	
 	
@@ -83,7 +78,7 @@ public class AdditionControllerTest {
 	@Test
 	public void deleteProductInvalidCategory() throws Exception 
 	{
-		mvc.perform(delete("/p-delete/{prodName}", "dummy555")).andExpect(status().isOk());
+		mvc.perform(delete("/p-delete/{prodName}", "dummy1")).andExpect(status().isOk());
 	}
 	
 	
